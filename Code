@@ -1,0 +1,61 @@
+import simplegui
+import math
+import random
+def new_game():
+    global secret_number
+    global count
+    count=7
+    secret_number=random.randint(0,99)
+    print "New game.Range is from 0 to 100"
+    print "Number of remaining guesses is " + str(count)
+    pass
+def range100():
+    global count 
+    count=7
+    secret_number=random.randint(0,99)
+    print "The range is now 1-100"
+    print "Number of remaining guesses is " + str(count)
+    pass
+def range1000():
+    global count
+    count=10
+    secret_number=random.randint(0,999)
+    print ""
+    print "New game.Range is from 0 to 1000"
+    print "Number of remaining guesses is " + str(count)
+    pass
+def input_guess(guess):
+    global count
+    guess=int(guess)
+    print ""
+    print "Guess was " + str(guess)
+    if(guess>secret_number):
+        count-=1
+        print "Number of remaining guesses is " + str(count)
+        print "Lower!"
+        print ""
+        if(count==0):
+            print "You ran out of guesses. The number was " + str(secret_number)
+            print ""
+            new_game()
+    elif(guess<secret_number):
+        count-=1
+        print "Number of remaining guesses is " + str(count)
+        print "Higher!"
+        print ""
+        if(count==0):
+            print "You ran out of guesses. The number was " + str(secret_number)
+            print ""
+            new_game()
+    else:
+        print "Number of remaining guesses is " + str(count)
+        print "Correct!"
+        print ""
+        new_game()
+    pass
+frame=simplegui.create_frame("Guess the number",200,200)                                 
+button1=frame.add_button("Range is [0,100)",range100,200)
+button2=frame.add_button("Range [0,1000)",range1000,200)
+frame.add_input("Enter a guess",input_guess,200)                                 
+frame.start()
+new_game()
